@@ -1,16 +1,16 @@
 import instance from "@/plugins/axios";
 
 const api = {
-    addCategoriesCategories: "rest/categories",
-    editCategoriesCategories: "rest/categories",
-    fetchCategoriesCategories: "rest/categories",
+    addCategories: "rest/categories",
+    editCategories: "rest/categories",
+    fetchCategories: "rest/categories",
     delCategories: "rest/categories",
 };
 
 // 编辑分类
 export function editCategories(paremater) {
     return instance({
-        url: api.editCategoriesCategories + "/" + paremater.id,
+        url: api.editCategories + "/" + paremater.id,
         method: "PUT",
     });
 }
@@ -18,7 +18,7 @@ export function editCategories(paremater) {
 // 添加分类
 export function addCategories(paremater) {
     return instance({
-        url: api.addCategoriesCategories,
+        url: api.addCategories,
         method: "POST",
         data: paremater,
     });
@@ -34,7 +34,7 @@ export function delCategories(paremater) {
 // 查询分类
 export function fetchCategories(paremater) {
     return instance({
-        url: api.fetchCategoriesCategories,
+        url: api.fetchCategories,
         method: "GET",
         params: paremater,
     });

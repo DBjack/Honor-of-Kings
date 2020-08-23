@@ -1,17 +1,11 @@
 <template>
   <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="_id" label="ID"></el-table-column>
-    <el-table-column prop="icon" label="图标">
-      <template slot-scope="scope">
-        <div>
-          <img :src="scope.row.avatar" style="width:40px" />
-        </div>
-      </template>
-    </el-table-column>
-    <el-table-column prop="name" label="分类"></el-table-column>
+    <el-table-column prop="parent.name" label="分类"></el-table-column>
+    <el-table-column prop="title" label="标题"></el-table-column>
     <el-table-column label="操作" align="right">
       <template slot-scope="scope">
-        <el-button @click="$router.push(`/heros/edit/${scope.row._id}`)">编辑</el-button>
+        <el-button @click="$router.push(`/article/edit/${scope.row._id}`)">编辑</el-button>
         <el-button @click="del(scope.row._id)">删除</el-button>
       </template>
     </el-table-column>
@@ -19,7 +13,7 @@
 </template>
 
 <script>
-import { fetchHeros, delHeros } from "@/api/heros";
+import { fetchArticle, delArticle } from "@/api/article";
 export default {
   data() {
     return {
@@ -27,16 +21,16 @@ export default {
     };
   },
   created() {
-    this.fetchHeros();
+    this.fetchArticle();
   },
   methods: {
-    async fetchHeros() {
-      const data = await fetchHeros();
+    async fetchArticle() {
+      const data = await fetchArticle();
       this.tableData = data;
     },
     edit(row) {
       this.$router.push({
-        path: "/heros/edit",
+        path: "/article/edit",
         params: {
           row,
         },
@@ -50,12 +44,12 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          await delHeros({ id: id });
+          await delArticle({ id: id });
           this.$message({
             type: "success",
             message: "删除成功!",
           });
-          this.fetchHeros();
+          this.fetchArticle();
         })
         .catch((err) => {
           console.log(err);

@@ -75,6 +75,50 @@ const routes = [{
             },
         ],
     },
+    {
+        path: "/article",
+        component: () =>
+            import ("@/views/Home"),
+        children: [{
+                path: "edit",
+                component: () =>
+                    import ("@/components/article/Edit"),
+            },
+            {
+                path: "edit/:id",
+                component: () =>
+                    import ("@/components/article/Edit"),
+                props: true,
+            },
+            {
+                path: "list",
+                component: () =>
+                    import ("@/components/article/List"),
+            },
+        ],
+    },
+    {
+        path: "/advert",
+        component: () =>
+            import ("@/views/Home"),
+        children: [{
+                path: "edit",
+                component: () =>
+                    import ("@/components/advert/Edit"),
+            },
+            {
+                path: "edit/:id",
+                component: () =>
+                    import ("@/components/advert/Edit"),
+                props: true,
+            },
+            {
+                path: "list",
+                component: () =>
+                    import ("@/components/advert/List"),
+            },
+        ],
+    },
 ];
 
 const router = new VueRouter({

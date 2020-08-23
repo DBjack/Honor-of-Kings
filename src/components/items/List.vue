@@ -11,7 +11,9 @@
     <el-table-column prop="name" label="分类"></el-table-column>
     <el-table-column label="操作" align="right">
       <template slot-scope="scope">
-        <el-button @click="$router.push(`/items/edit/${scope.row._id}`)">编辑</el-button>
+        <el-button @click="$router.push(`/items/edit/${scope.row._id}`)"
+          >编辑</el-button
+        >
         <el-button @click="del(scope.row._id)">删除</el-button>
       </template>
     </el-table-column>
@@ -19,7 +21,7 @@
 </template>
 
 <script>
-import { fetch, delCategory } from "@/api/items";
+import { fetchItems, delItems } from "@/api/items";
 export default {
   data() {
     return {
@@ -27,11 +29,11 @@ export default {
     };
   },
   created() {
-    this.fetch();
+    this.fetchItems();
   },
   methods: {
-    async fetch() {
-      const data = await fetch();
+    async fetchItems() {
+      const data = await fetchItems();
       this.tableData = data;
     },
     edit(row) {
@@ -50,12 +52,12 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          await delCategory({ id: id });
+          await delItems({ id: id });
           this.$message({
             type: "success",
             message: "删除成功!",
           });
-          this.fetch();
+          this.fetchItems();
         })
         .catch((err) => {
           console.log(err);

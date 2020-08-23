@@ -1,50 +1,52 @@
 import instance from "@/plugins/axios";
 
 const api = {
-    addHeros: "rest/heros",
-    editHeros: "rest/heros",
-    delHeros: "rest/heros",
-    fetchHeros: "rest/heros",
-    fetchSingleHeros: "rest/heros",
+    addArticle: "rest/article",
+    editArticle: "rest/article",
+    fetchArticle: "rest/article",
+    fetchSingle: "rest/article",
+    // 查询分类
+    del: "rest/article",
 };
 
 // 编辑分类
-export function editHeros(paremater) {
+export function editArticle(paremater) {
     return instance({
-        url: api.editHeros + "/" + paremater.id,
+        url: api.editArticle + "/" + paremater.id,
         method: "PUT",
         data: paremater,
     });
 }
 
 // 添加分类
-export function addHeros(paremater) {
+export function addArticle(paremater) {
     return instance({
-        url: api.addHeros,
+        url: api.addArticle,
         method: "POST",
         data: paremater,
     });
 }
 
 // 删除分类
-export function delHeros(paremater) {
+export function delArticle(paremater) {
     return instance({
         url: api.del + "/" + paremater.id,
         method: "delete",
     });
 }
 // 查询分类
-export function fetchHeros(paremater) {
+export function fetchArticle(paremater) {
     return instance({
-        url: api.fetchHeros,
+        url: api.fetchArticle,
         method: "GET",
         params: paremater,
     });
 }
-// 查询单个详情
-export function fetchSingleHeros(paremater) {
+
+// 查询分类
+export function fetchSingle(paremater) {
     return instance({
-        url: api.fetchSingleHeros + "/" + paremater.id,
+        url: api.fetchSingle + "/" + paremater.id,
         method: "GET",
         params: paremater,
     });

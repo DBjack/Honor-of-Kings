@@ -2,31 +2,28 @@
   <div>
     <h2>{{ id ? "修改物品" : "新建物品" }}</h2>
     <el-form label-width="100px">
-      <!-- <el-form-item label="上级分类">
-        <el-select v-model="parent" @focus="fetchItems">
+      <el-form-item label="上级分类">
+        <el-select v-model="model.parent">
           <el-option
-            v-for="item in options"
+            v-for="item in categories"
             :key="item._id"
             :value="item._id"
             :label="item.name"
             >{{ item.name }}</el-option
           >
         </el-select>
-      </el-form-item> -->
-      <el-form-item label="名称">
-        <el-input v-model="model.name"></el-input>
       </el-form-item>
 
-      <el-form-item label="图标">
-        <el-upload
-          class="avatar-uploader"
-          :action="$http.defaults.baseURL + '/upload'"
-          :show-file-list="false"
-          :on-success="afterUpload"
-        >
-          <img v-if="model.icon" :src="model.icon" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-form-item label="标题">
+        <el-input v-model="model.title"></el-input>
+      </el-form-item>
+
+      <el-form-item label="内容">
+        <Vue-Editor
+          v-model="model.content"
+          useCustomImageHandler
+          @image-added="handleImageAdded"
+        ></Vue-Editor>
       </el-form-item>
 
       <el-form-item>
@@ -37,14 +34,15 @@
 </template>
 
 <script>
-import { fetchItems, editItems, addItems } from "@/api/items";
+import { editArticle, addArticle, fetchSingle } from "@/api/article";
+import { fetchCategories } from "@/api/categories";
+import { VueEditor } from "vue2-editor";
 export default {
   data() {
     return {
-      model: {
-        name: "",
-      },
-      options: [],
+      model: {},
+      categories: [],
+      parent: "",
     };
   },
   props: {
@@ -53,29 +51,45 @@ export default {
       default: "",
     },
   },
+  components: {
+    VueEditor,
+  },
   created() {
-    console.log(this.$http.defaults);
+    this.fetchCategories();
+    this.id && this.fetchSingle();
   },
   methods: {
-    async fetchItems() {
-      const data = await fetchItems();
-      this.options = data;
+    async fetchCategories() {
+      const data = await fetchCategories();
+      this.categories = data;
+    },
+    async fetchSingle() {
+      const data = await fetchSingle({ id: this.id });
+      this.model = data;
     },
     async onSubmit() {
       // 编辑分类
       if (this.id) {
         this.model.id = this.id;
-        await editItems(this.model);
+        await editArticle(this.model);
         this.$message.success("编辑成功");
       } else {
         // 添加分类
-        await addItems(this.model);
+        await addArticle(this.model);
         this.$message.success("添加成功");
       }
-      this.$router.push("/items/list");
+      this.$router.push("/article/list");
     },
     afterUpload(res) {
       this.$set(this.model, "icon", res.url);
+    },
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await this.$http.post("/upload", formData);
+
+      Editor.insertEmbed(cursorLocation, "image", res.url);
+      resetUploader();
     },
   },
 };

@@ -4,34 +4,37 @@
       <el-menu :default-openeds="['1', '2']" router>
         <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-message"></i>内容管理
+            内容管理
           </template>
           <el-menu-item-group>
-            <template slot="title">分类</template>
+            <span slot="title">分类</span>
             <el-menu-item index="/categories/edit">新建分类</el-menu-item>
             <el-menu-item index="/categories/list">分类列表</el-menu-item>
           </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-message"></i>物品管理
-          </template>
           <el-menu-item-group>
-            <template slot="title">分类</template>
+            <span slot="title">物品</span>
             <el-menu-item index="/items/edit">新建物品</el-menu-item>
             <el-menu-item index="/items/list">物品列表</el-menu-item>
           </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-message"></i>英雄管理
-          </template>
           <el-menu-item-group>
-            <template slot="title">分类</template>
+            <span slot="title">英雄</span>
             <el-menu-item index="/heros/edit">新建英雄</el-menu-item>
             <el-menu-item index="/heros/list">英雄列表</el-menu-item>
           </el-menu-item-group>
+          <el-menu-item-group>
+            <span slot="title">文章</span>
+            <el-menu-item index="/article/edit">新建文章</el-menu-item>
+            <el-menu-item index="/article/list">英雄文章</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <span slot="title">广告</span>
+            <el-menu-item index="/advert/edit">新建广告位</el-menu-item>
+            <el-menu-item index="/advert/list">广告位列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item>其他菜单</el-menu-item>
         </el-submenu>
+
+        <el-menu-item>其他菜单</el-menu-item>
       </el-menu>
     </el-aside>
 
