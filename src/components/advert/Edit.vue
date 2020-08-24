@@ -6,16 +6,11 @@
         <el-input v-model="model.name"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button
-          icon="el-icon-plus"
-          type="text"
-          @click="model.advert.push({})"
-          >添加广告位</el-button
-        >
+        <el-button icon="el-icon-plus" type="text" @click="model.advert.push({})">添加广告位</el-button>
       </el-form-item>
 
       <el-row type="flex" style="flex-wrap:wrap">
-        <el-col :md="12" v-for="(item, index) in model.advert" :key="index">
+        <el-col :md="20" v-for="(item, index) in model.advert" :key="index">
           <el-form-item label="图标">
             <el-upload
               class="avatar-uploader"
@@ -29,10 +24,11 @@
           </el-form-item>
           <el-form-item label="跳转链接">
             <el-input v-model="item.url">
-              <template slot="prepend">
-                <span>https://</span>
-                <span>http://</span>
-              </template>
+              <el-select v-model="select" slot="prepend" placeholder="请选择">
+                <el-option label="餐厅名" value="1"></el-option>
+                <el-option label="订单号" value="2"></el-option>
+                <el-option label="用户电话" value="3"></el-option>
+              </el-select>
             </el-input>
           </el-form-item>
           <el-form-item label="描述">
@@ -42,9 +38,7 @@
             <el-input v-model="item.tips"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="model.advert.splice(index, 1)"
-              >删除</el-button
-            >
+            <el-button type="primary" @click="model.advert.splice(index, 1)">删除</el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -67,6 +61,7 @@ export default {
       },
       categories: [],
       parent: "",
+      select: "",
     };
   },
   props: {
@@ -131,14 +126,14 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  width: 68px;
+  height: 68px;
+  line-height: 68px;
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 68px;
+  height: 68px;
   display: block;
 }
 </style>

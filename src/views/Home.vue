@@ -1,16 +1,9 @@
 <template>
   <el-container style="height: 100vh; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-openeds="['1', '2']" router>
+      <el-menu :default-active="$route.path" router unique-opened>
         <el-submenu index="1">
-          <template slot="title">
-            内容管理
-          </template>
-          <el-menu-item-group>
-            <span slot="title">分类</span>
-            <el-menu-item index="/categories/edit">新建分类</el-menu-item>
-            <el-menu-item index="/categories/list">分类列表</el-menu-item>
-          </el-menu-item-group>
+          <template slot="title">内容管理</template>
           <el-menu-item-group>
             <span slot="title">物品</span>
             <el-menu-item index="/items/edit">新建物品</el-menu-item>
@@ -26,15 +19,30 @@
             <el-menu-item index="/article/edit">新建文章</el-menu-item>
             <el-menu-item index="/article/list">英雄文章</el-menu-item>
           </el-menu-item-group>
+        </el-submenu>
+
+        <el-submenu index="2">
+          <template slot="title">运营管理</template>
           <el-menu-item-group>
             <span slot="title">广告</span>
             <el-menu-item index="/advert/edit">新建广告位</el-menu-item>
             <el-menu-item index="/advert/list">广告位列表</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item>其他菜单</el-menu-item>
         </el-submenu>
 
-        <el-menu-item>其他菜单</el-menu-item>
+        <el-submenu index="3">
+          <template slot="title">系统管理</template>
+          <el-menu-item-group>
+            <span slot="title">分类</span>
+            <el-menu-item index="/categories/edit">新建分类</el-menu-item>
+            <el-menu-item index="/categories/list">分类列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <span slot="title">管理员</span>
+            <el-menu-item index="/adminUser/edit">新建管理员</el-menu-item>
+            <el-menu-item index="/adminUser/list">管理员列表</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
 

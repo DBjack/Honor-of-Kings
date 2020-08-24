@@ -7,8 +7,11 @@ const routes = [{
         path: "/",
         redirect: "/home",
     },
-    { path: "/home", component: () =>
-            import ("@/views/Home") },
+    {
+        path: "/home",
+        component: () =>
+            import ("@/views/Home"),
+    },
     {
         path: "/categories",
         component: () =>
@@ -118,6 +121,33 @@ const routes = [{
                     import ("@/components/advert/List"),
             },
         ],
+    },
+    {
+        path: "/adminUser",
+        component: () =>
+            import ("@/views/Home"),
+        children: [{
+                path: "edit",
+                component: () =>
+                    import ("@/components/adminUser/Edit"),
+            },
+            {
+                path: "edit/:id",
+                component: () =>
+                    import ("@/components/adminUser/Edit"),
+                props: true,
+            },
+            {
+                path: "list",
+                component: () =>
+                    import ("@/components/adminUser/List"),
+            },
+        ],
+    },
+    {
+        path: "/login",
+        component: () =>
+            import ("@/views/Login"),
     },
 ];
 

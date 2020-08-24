@@ -30,6 +30,8 @@ import {
     Icon,
     Col,
     Row,
+    Card,
+    Notification,
 } from "element-ui";
 
 Vue.use(Button);
@@ -59,6 +61,8 @@ Vue.use(TabPane);
 Vue.use(Icon);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Card);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
+Vue.prototype.$notify = Notification;
