@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import { getCookie } from "@/util/util";
 Vue.use(VueRouter);
 
 const routes = [{
@@ -148,6 +148,9 @@ const routes = [{
         path: "/login",
         component: () =>
             import ("@/views/Login"),
+        meta: {
+            isPublic: true,
+        },
     },
 ];
 
@@ -155,6 +158,13 @@ const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    if (!to.meta.isPublic && !getCookie("AUTHONZATION")) {
+        return next("/login");
+    }
+    next();
 });
 
 export default router;

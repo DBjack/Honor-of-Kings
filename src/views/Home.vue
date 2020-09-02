@@ -51,9 +51,10 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>个人信息</el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="logout">退出登录</div>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <span>王小虎</span>
@@ -88,6 +89,24 @@ export default {
     return {
       tableData: Array(20).fill(item),
     };
+  },
+  methods: {
+    logout() {
+      this.$confirm("是否退出当前用户？", "提示", {
+        confirmButtonText: "退出",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$router.push("/login");
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出",
+          });
+        });
+    },
   },
 };
 </script>

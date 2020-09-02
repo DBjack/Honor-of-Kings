@@ -1,12 +1,24 @@
 import axios from "axios";
 import { Notification } from "element-ui";
+import { getCookie } from "@/util/util";
+
+let baseurl = process.env.VUE_APP_BASEURL;
+let locationUrl = process.env.VUE_APP_LOCATIONURL;
+
 let instance = axios.create({
-    baseURL: "http://localhost:3000/admin/api",
+    baseURL: `${baseurl}/admin/api`,
     timeout: 50000,
+    withCredentials: true,
 });
+
+let token = getCookie("AUTHONZATION");
+console.log(process.env.VUE_APP_BASEURL, 1123344);
 
 //请求拦截器
 instance.interceptors.request.use((config) => {
+    if (token) {
+        config.headers["AUTHONZATION"] = token;
+    }
     return config;
 });
 
@@ -16,14 +28,14 @@ instance.interceptors.response.use(
         return response.data;
     },
     (error) => {
-        console.log(error.response);
-        if (error.response.status === 400) {
+        if (error.response.status === 422) {
             Notification({
                 title: "提示",
                 message: error.response.data.message,
-                duration: 0,
+                duration: 1500,
                 type: "error",
             });
+            location.href = `${locationUrl}/login`;
         }
         return Promise.reject(error);
     }

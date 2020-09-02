@@ -12,7 +12,7 @@
             >{{ item.name }}</el-option
           >
         </el-select>
-      </el-form-item> -->
+      </el-form-item>-->
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
@@ -21,6 +21,7 @@
         <el-upload
           class="avatar-uploader"
           :action="$http.defaults.baseURL + '/upload'"
+          :headers="getAuthHeader()"
           :show-file-list="false"
           :on-success="afterUpload"
         >
@@ -38,6 +39,8 @@
 
 <script>
 import { fetchItems, editItems, addItems } from "@/api/items";
+import { getCookie } from "@/util/util";
+import { mixin } from "@/util/mixin";
 export default {
   data() {
     return {
@@ -46,6 +49,12 @@ export default {
       },
       options: [],
     };
+  },
+  mixins: [mixin],
+  computed: {
+    AUTHONZATION() {
+      return getCookie("AUTHONZATION");
+    },
   },
   props: {
     id: {

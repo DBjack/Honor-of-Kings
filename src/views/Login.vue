@@ -10,7 +10,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="primary">注册</el-button>
+          <el-button type="primary" @click="register">注册</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { login } from "@/api/login";
+import { login, register } from "@/api/login";
 export default {
   data() {
     return {
@@ -27,9 +27,15 @@ export default {
   },
   methods: {
     async login() {
-      const { token } = await login(this.model);
-
-      localStorage.setItem("token", token);
+      const { message, code } = await login(this.model);
+      code === 1000
+        ? this.$message.success(message)
+        : this.$message.error(message);
+      this.$router.push("/home");
+    },
+    async register() {
+      const { code, msg } = await register(this.model);
+      code === 1000 ? this.$message.success(msg) : this.$message.error(msg);
     },
   },
 };
