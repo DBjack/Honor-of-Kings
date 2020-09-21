@@ -31,6 +31,7 @@ export default {
       code === 1000
         ? this.$message.success(message)
         : this.$message.error(message);
+
       this.$router.push("/home");
     },
     async register() {
