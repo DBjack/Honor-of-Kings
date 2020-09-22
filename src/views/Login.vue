@@ -27,12 +27,14 @@ export default {
   },
   methods: {
     async login() {
-      const { message, code } = await login(this.model);
-      code === 1000
-        ? this.$message.success(message)
-        : this.$message.error(message);
+      const { msg, code } = await login(this.model);
 
-      this.$router.push("/home");
+      if (code === 1000) {
+        this.$message.success(msg);
+        this.$router.push("/home");
+      } else {
+        this.$message.error(msg);
+      }
     },
     async register() {
       const { code, msg } = await register(this.model);

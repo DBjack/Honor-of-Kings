@@ -3,7 +3,6 @@ import { Notification } from "element-ui";
 import { getCookie } from "@/util/util";
 
 let baseurl = process.env.VUE_APP_BASEURL;
-let locationUrl = process.env.VUE_APP_LOCATIONURL;
 
 let instance = axios.create({
     baseURL: `${baseurl}/admin/api`,
@@ -35,7 +34,6 @@ instance.interceptors.response.use(
                 duration: 1500,
                 type: "error",
             });
-            location.href = `${locationUrl}/login`;
         }
         return Promise.reject(error);
     }
